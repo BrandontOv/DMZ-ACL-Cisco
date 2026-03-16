@@ -25,29 +25,43 @@ Completa la tabla con las IPs asignadas (puedes copiarla del enunciado si no cam
 
 | Dispositivo             | IP              | Máscara           | Gateway           |
 |-------------------------|------------------|-------------------|-------------------|
-| PC_Internal             |                  |                   |                   |
-| Server_DMZ              |                  |                   |                   |
-| PC_External             |                  |                   |                   |
-| Router_FW Gi0/0 (LAN)   |                  |                   |                   |
-| Router_FW Gi0/1 (DMZ)   |                  |                   |                   |
-| Router_FW Gi0/2 (Ext)   |                  |                   |                   |
+| PC_Internal             | 192.168.1.10     | 255.255.255.0     | 192.168.1.1       |
+| Server_DMZ              | 192.168.2.10     | 255.255.255.0     | 192.168.2.1       |
+| PC_External             | 192.168.3.10     | 255.255.255.0     | 192.168.3.1       |
+| Router_FW Gi0/0 (LAN)   | 192.168.1.1      | 255.255.255.0     |                   |
+| Router_FW Gi0/1 (DMZ)   | 192.168.2.1      | 255.255.255.0     |                   |
+| Router_FW Gi0/2 (Ext)   | 192.168.3.1      | 255.255.255.0     |                   |
 
 
 ### 4. Configuración aplicada (resumen)
 
-> Resume los comandos o pasos más relevantes que ejecutaste. Usa texto + fragmentos de código cuando sea necesario.
+> Se crearon las ACL desde el pripio terminal de Router de la siguiente forma:
 
-- Interfaces configuradas con `ip address`
-- NAT:
+Permite el acceso al servidor y bloquea Pings y otros ataques.
 ```bash
-ip nat inside source static 192.168.2.10 192.168.3.1
+Router(config)# access-list 100 permit tcp any host 192.168.3.1 eq 80
 ```
-- ACLs:
+Nos permite respuestas a conexiones ya iniciadas (permite cargar la web en la LAN)
 ```bash
-access-list 101 permit tcp any host 192.168.3.1 eq 80
-access-list 100 deny ip 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255
+Router(config)# access-list 101 permit tcp 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255 established
 ```
-
+Deniega cualquier otro intento de la DMZ de entrar a la LAN
+```bash
+Router(config)# access-list 101 deny ip 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255
+```
+Permite que la DMZ salga a Internet (para actualizaciones o DNS)
+```bash
+Router(config)# access-list 101 permit ip any any
+```
+(Añade las reglas a los puertos correspondientes)
+```bash
+Router(config)# interface GigabitEthernet0/2
+Router(config-if)# ip access-group 100 in
+```
+```bash
+Router(config)# interface GigabitEthernet0/1
+Router(config-if)# ip access-group 101 in
+```
 
 
 ### 5. Verificaciones realizadas
@@ -61,10 +75,7 @@ access-list 100 deny ip 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255
 
 ### 6. Conclusiones y recomendaciones
 
-> ¿Qué aprendiste con este ejercicio? ¿Qué mejorarías?
-
-**Ejemplo:**
-Aprendí a aplicar NAT y ACLs en un entorno simulado. Recomiendo verificar conectividad básica antes de aplicar reglas de firewall, ya que un error en la IP puede bloquear todo.
+La implementacion de Reglas es vital para el control de acceso a puntos criticos de la infraestructura, estas claves establecidas dentro del Router regulan las peticiones internas y externas del servidor, bloqueando peticiones no escenciales, ni reguladas al sistema. añadiendo capas de seguridad extra para reducir el riesgo de ataques 
 
 
 ### 7. Capturas de evidencia
