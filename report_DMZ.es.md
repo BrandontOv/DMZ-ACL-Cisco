@@ -5,16 +5,16 @@
 ### 1. Objetivo del laboratorio
 
 
-Se pretebde Configurar una DMZ (Desmilitarized Zone) empleando un router Cisco ISR, aplicado a una red NAT y usando ACLs (Acces-Control List) para controlar el tráfico entre LAN, DMZ y red externa que permite el acceso a internet.
+Se pretende Configurar una DMZ (Desmilitarized Zone) empleando un router Cisco ISR, aplicado a una red NAT y usando ACLs (Acces-Control List) para controlar el tráfico entre LAN, DMZ y red externa que permite el acceso a internet.
 
 ---
 
 ### 2. Topología implementada
 
-> Describe la red. Puedes incluir una imagen si el software lo permite (captura de Packet Tracer).
+> 
 
-- Cantidad de redes: __________
-- Dispositivos usados: __________
+- Cantidad de redes: 1
+- Dispositivos usados: 3
 - Breve descripción de la función de cada zona (LAN, DMZ, Externa).
 
 
