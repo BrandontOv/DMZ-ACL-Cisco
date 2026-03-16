@@ -11,7 +11,7 @@ Se pretende Configurar una DMZ (Desmilitarized Zone) empleando un router Cisco I
 
 ### 2. Topología implementada
 
-> 
+>![Topologia distribuida](Topology.png)
 
 - Cantidad de redes: 1
 - Dispositivos usados: 3
@@ -69,4 +69,4 @@ Aprendí a aplicar NAT y ACLs en un entorno simulado. Recomiendo verificar conec
 
 ### 7. Capturas de evidencia
 
-> Adjunta aquí (o en un PDF anexo) las capturas solicitadas: pings, navegador, comandos `show`, etc.
+[Documentacion Evidencias](EvidenciasDMZ.pdf)
