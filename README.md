@@ -1,2 +1,2 @@
 # DMZ-ACL-Cisco
-Proyect to implement ACLs in a controlled enviroment making a DMZ for controll access using Cisco Packet Tracer
+Proyecto enfocado a la creacion de reglas ACL para la creacion de una DMZ en pro de buena praxis a nivel de seguridad
